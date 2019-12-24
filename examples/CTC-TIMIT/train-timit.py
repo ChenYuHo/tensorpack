@@ -9,6 +9,7 @@ import tensorflow as tf
 from six.moves import range
 
 from tensorpack import *
+from tensorpack.utils import serialize
 from tensorpack.tfutils.gradproc import GlobalNormClip, SummaryGradient
 
 from timitdata import TIMITBatch
