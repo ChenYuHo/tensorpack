@@ -199,7 +199,10 @@ if __name__ == '__main__':
         logger.auto_set_dir(action="d")
     else:
         logger.set_logger_dir(args.logdir, action="d")
-
-    wandb.init(config=vars(args))
+    wandb_id = os.environ.get('WANDB_ID', None)
+    if wandb_id is None:
+        wandb.init(config=vars(args))
+    else:
+        wandb.init(config=vars(args), id=f"{wandb_id}{trainer._rank}")
     wandb.tensorboard.patch(save=False)
     launch_train_with_config(config, HorovodTrainer())
