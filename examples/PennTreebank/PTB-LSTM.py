@@ -204,5 +204,6 @@ if __name__ == '__main__':
         wandb.init(config=vars(args))
     else:
         wandb.init(config=vars(args), id=f"{wandb_id}{trainer._rank}")
+    wandb.config.update({'SLURM_JOB_ID': os.environ.get('SLURM_JOB_ID', None)})
     wandb.tensorboard.patch(save=False)
     launch_train_with_config(config, HorovodTrainer())
